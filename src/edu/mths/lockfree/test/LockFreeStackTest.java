@@ -49,7 +49,7 @@ public class LockFreeStackTest {
 
 		for (int l = 0; l < 5; l++) {
 			for (int i = 0; i < NR_OF_RUNS; i++, nrOfThreads++) {
-				long start = System.currentTimeMillis();
+				long start = System.nanoTime();
 				stack = new LockFreeStack<Integer>();
 				executor = Executors.newFixedThreadPool(nrOfThreads);
 
@@ -70,7 +70,7 @@ public class LockFreeStackTest {
 				while (!executor.isTerminated()) {
 				}
 
-				long stop = System.currentTimeMillis();
+				long stop = System.nanoTime();
 
 				if (!totalTriesMap.containsKey(nrOfThreads)) {
 					totalTriesMap.put(nrOfThreads, (double) stack.getTries());
@@ -92,7 +92,7 @@ public class LockFreeStackTest {
 		for (Integer i : totalTriesMap.keySet()) {
 			int tries = (int) (totalTriesMap.get(i) / AVERAGE);
 
-			System.out.format("%d \t\t %d \t %.3f %n", i, tries,
+			System.out.format("%d \t\t %d \t %.4f %n", i, tries,
 					totalRunningTimeMap.get(i) / AVERAGE);
 		}
 	}
